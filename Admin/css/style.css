@@ -1,0 +1,21 @@
+
+.navbar
+{
+	
+	text-transform: uppercase;
+	font-weight: bold;
+	
+}
+ #mynavbar ul li a
+{
+	color: white;
+	opacity: 1;
+}
+#mynavbar ul li a:hover
+{
+	color: red;
+	opacity: 2;
+}
+
+
+

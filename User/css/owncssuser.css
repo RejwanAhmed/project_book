@@ -1,0 +1,187 @@
+body
+{
+	background: #BEBEBE;
+}
+.navbar
+{
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#mynavbar
+{
+	 background: #2F4F4F;
+}
+
+ #mynavbar ul li a
+{
+	padding: 5px;
+	color: white;
+	opacity: .8;
+	margin: 5px;
+	color: #10F9E8;
+}
+#mynavbar ul li a:hover
+{
+	
+	background: #407568;
+	margin: 5px;
+	color: #FF7A2C;
+	opacity: 1;
+	padding: 5px;
+	border-radius: 5px;
+	
+}
+.header
+{
+	background: #2F4F4F;
+	color: white;
+	text-align: center;
+	padding: 3px;
+}
+.logintext
+{
+	text-align:center;
+}
+
+.hrline
+{
+	width: 300px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+	
+}
+.edit_pro_details
+{
+	width: 280px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.previous_hrline
+{
+	width: 300px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.previous_chair_hrline
+{
+	width: 340px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.hrlineofchairman
+{
+	width: 679px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.pr_detailsline
+{
+	width: 220px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.chairman_list_hrline
+{
+	width: 205px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+.submit
+{
+	font-size: 20px;
+}
+.modfiy_hrline
+{
+	
+	width: 355px; 
+	color: #F6385E; 
+	border-width: 3px; 
+	border-style:inset;
+	margin-top:-5px;
+}
+
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+
+    border: 1px solid teal;
+
+}
+th 
+{
+	text-align: center;
+}
+.captcha
+{
+	text-align:center;
+	background: white;
+	border-radius: 2px;
+}
+
+.active
+{
+	background: #2a8695;
+	border-radius: 5px;
+}
+.table-dark 
+{
+    color: #fff;
+    background-color: black;
+
+}
+.table th 
+{
+    background: #497a83;
+    color: white;
+    font-size: 19px;
+}
+tr:nth-child(even)
+{
+	background:#071551;
+}
+tr:hover
+{
+	background:#969F9B;		
+	
+}
+.active_page
+{
+	background: #21171b;
+}
+.pagination,
+.pagination li a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.inactive_page
+{
+	background: #1b4541;;
+}
+.project_details_table  td, .project_details_table  th
+{
+	padding: 0.1rem;
+	text-align:center;
+	font-style: bold;
+}
+
+.project_details_table
+{
+	width: 90%;
+	margin: auto;
+	
+}
