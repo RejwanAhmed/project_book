@@ -1,0 +1,58 @@
+<?php
+	session_start();
+	if($_SESSION["loggedin"]!=1)
+	{
+		?>
+			<script>
+				window.location = "login.php";
+			</script>
+		<?php 
+		exit();
+	}
+	$conn = mysqli_connect("localhost","root","","project");
+	
+	$teacher_name = $_POST['tid'];
+	$session = $_POST['session'];
+	$year = $_POST['year'];
+	
+	
+	$qry1 = "select * from `exam_committee`";
+	$res = mysqli_query($conn, $qry1);
+	$approve=0;
+	
+	while($row = mysqli_fetch_assoc($res))
+	{
+		if($row['session']== $session && $row['year']== $year && $row['status'] == "active")
+		{
+			$approve = 1;
+			break;
+		}
+	}
+	if($approve==0)
+	{
+		$qry3= "select * from `add_teacher`";
+		$qry2= "INSERT INTO `exam_committee`(`teacher_name`, `session`, `year`,`status`) VALUES ('$teacher_name','$session','$year','active')";
+		$res2= mysqli_query($conn, $qry2);
+		
+		?>
+		<script type="text/javascript">
+			window.alert("Teacher Added to the Exam Committee Successfully");
+			window.location = "chairman_list.php";
+		</script>
+		<?php
+	}
+	else
+	{
+		?>
+		<script type="text/javascript">
+			window.alert("Already teacher exists for this session");
+			window.location = "exam_committee_registration.php";
+		</script>
+	<?php
+		
+	}
+	
+	
+	
+
+?>

@@ -1,0 +1,59 @@
+<?php 
+	session_start();
+	if($_SESSION["userloggedin"]!=1)
+	{
+		?>
+			<script>
+				window.location = "user_panel.php";
+			</script>
+		<?php 
+		exit();
+	}
+	else
+	{
+		?>
+			<script>
+				window.location = "project_list.php";
+			</script>
+		<?php 
+		exit();
+	}
+	$conn = mysqli_connect("localhost","root","","project");
+	
+	$project_name = $_POST['project_name'];
+	$session = $_POST['session'];
+	$semester = $_POST['semester'];
+	$co_supervisor = $_POST['supervisor'];
+	$project_name = $_POST['co_supervisor'];
+	$project_description = $_POST['description'];
+	
+	
+
+
+	if(!isset($_FILES['f1']))
+	{
+		$qry = "INSERT INTO `project_information`( `project_name`, `session`, `semester`, `supervisor`, `co_supervisor`, `project_des`, `project_image`) VALUES ('$project_name','$session','$semester','$co_supervisor','$project_name','$project_description','')";
+	}
+
+	else
+	{
+		
+		$filename = $_FILES["f1"]["name"];
+		$tmpname = $_FILES["f1"]["tmp_name"];
+		$folder = "project_image/".$filename;	
+		move_uploaded_file($tmpname,$folder);
+		$qry = "INSERT INTO `project_information`( `project_name`, `session`, `semester`, `supervisor`, `co_supervisor`, `project_des`, `project_image`) VALUES ('$project_name','$session','$semester','$co_supervisor','$project_name','$project_description','$filename')";
+	}
+	
+	
+	
+	$res = mysqli_query($conn, $qry);
+
+		
+		?>
+			<script type="text/javascript">
+				alert("Project Added Successfully");
+				window.location = "project_list.php";
+			</script>
+		<?php
+?>

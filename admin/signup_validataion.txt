@@ -1,0 +1,28 @@
+<?php
+
+	include('db_connection.php');
+	if($conn)
+	{
+		echo "connection successful";
+	}
+	else
+	{
+		echo "no connection";
+	}
+	mysqli_select_db($conn,"project");
+	
+	$name = $_POST['username'];
+	$pass = $_POST['password'];
+	$pass = base64_encode($pass);
+	$qry = "INSERT INTO `admin_log_in`(`username`, `password`) VALUES ('$name','$pass')";
+	
+	$res = mysqli_query($conn, $qry);
+	
+	?>
+		<script>
+			window.location = "signup.php";
+		</script>
+	<?php 
+	exit();
+	
+?>

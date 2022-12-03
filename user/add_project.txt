@@ -1,0 +1,331 @@
+<?php
+	session_start();
+	if($_SESSION["userloggedin"]!=1)
+	{
+		?>
+			<script>
+				window.location = "user_panel.php";
+			</script>
+		<?php 
+		exit();
+	}
+	$conn = mysqli_connect("localhost","root","","project");
+?>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/owncssuser.css" />
+
+
+	<title>Add Project</title>
+	
+	<script>
+	function changeinput(ip)
+	{
+		document.getElementById("inp").value = ip; 
+	}	
+	function changecospervisor(co_sup)
+	{
+		document.getElementById("co_sup").value = co_sup; 
+	}
+	
+	function changesession(sns)
+	{
+		document.getElementById("ses").value = sns;
+	}
+	function changeyear(select_year)
+	{
+		document.getElementById("select_year").value = select_year; 
+	}
+	</script>
+
+</head>
+<body >
+<!-- Navbar -->
+
+	<div id = "mynavbar"  role = "navigation" >
+		<nav class="navbar navbar-expand-lg  navbar-dark ">
+			<h3 style = "color:#F0F8FF;"><b> Welcome 
+				<?php 
+					
+					$name = $_SESSION['name'];
+					$i=0;
+					$len = strlen($name);
+					while($i<$len)
+					{
+						if($name[$i]== ' ')
+						{
+							break;
+						}
+						else
+						{
+							echo $name[$i];
+							$i++;
+						}
+						
+					}				
+				
+				?></b></h3>
+			
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav mr-auto list-group">
+					<li class="nav-item ">
+						<a class="nav-link " href="my_profile.php">MY PROFILE<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link " href="former_chairman_list.php">FORMER CHAIRMAN</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="project_list.php">PROJECT LIST</a>
+					</li>
+				</ul>
+				<ul class = "nav navbar-nav navbar-right">
+					
+					<li class="nav-item" style = "font-size: 15px;  margin-top: -3px;"><a  class="nav-link" href="change_email_pass.php">Change Email and Password </a></li>
+					
+				</ul>
+				<ul class = "nav navbar-nav navbar-right ">
+					
+					<li class="nav-item" style = " font-size: 15px;"><a  class="nav-link" href="logout.php">Logout <img src="images/logout.png" alt="" /></a></li>
+					
+				</ul>
+				
+		  </div>  
+		  
+		</nav>
+	</div>
+	
+		<br>
+	<!-- End of Navbar -->
+	
+
+		
+		
+		<div class = "logintext">
+			<h2 style = "color:#3871F6; width: auto;"><b> Fill The Form To Add Project</b></h2>
+			<b><hr class = "hrline" style = "width: 420px;"/></b>
+		</div>
+		
+		<div class = "container-fluid">
+		
+			<div class = "row justify-content-center">
+				
+				<div class = "col-lg-3 col-sm-6 col-md-4 col-8">
+					<form name = "" action="" method = "POST" class = "form-container" enctype="multipart/form-data">
+						
+						<div class="form-group"> 
+							<label for=""><b>Project Name:</b></label>
+							
+							<input class="form-control" type="text" name="project_name"  placeholder = "Enter Project Name" value ="" required=""/>
+						</div>
+						
+						<div class="form-group"> 
+							<label for=""><b>Session:</b></label>
+							
+							<!-- Session Field (input with drop down) -->
+							
+							<div class="input-group">
+								<input type="text" name = "session" class="form-control" id="ses" placeholder = "Enter Session" required= ""/>
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+									</button>
+									<div class="dropdown-menu">	
+										<?php
+											 $c = 2006;
+	 
+											$today = date("Y"); 
+
+											 for($i=$c; $i<$today; $i++)
+											 {
+												 $r = $i + 1;
+												 echo "<button type = 'button' onclick = changesession('$i-$r') class= 'dropdown-item'> $i-$r </button>";
+											 }		
+										?>
+									</div>
+								</div>
+							</div>
+							
+							<!-- End of Session Field (input with drop down) -->
+							
+						</div>
+						
+						<div class=" form-group">
+							<label for=""><b>Semester:</b></label>
+							<div class = "input-group">
+								<input type="text" name = "semester" class="form-control" value="" id="select_year"
+							 placeholder = "Enter Semester" required=""/>
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" ></button>
+									<div class="dropdown-menu">
+										
+										<?php
+											
+												echo "<button type = \"button\"  onclick = \"changeyear('B.Sc 2nd Semester')\" class= \"dropdown-item\" >B.Sc 2nd Semester </button>";
+												echo "<button type = \"button\"  onclick = \"changeyear('B.Sc 4th Semester')\" class= \"dropdown-item\" >B.Sc 4th Semester</button>";
+												echo "<button type = \"button\"  onclick = \"changeyear('B.Sc 6th Semester')\" class= \"dropdown-item\" >B.Sc 6th Semester </button>";
+												echo "<button type = \"button\"  onclick = \"changeyear('B.Sc 7th Semester')\" class= \"dropdown-item\" >B.Sc 7th Semester </button>";
+												echo "<button type = \"button\"  onclick = \"changeyear('B.Sc 8th Semester')\" class= \"dropdown-item\" >B.Sc 8th Semester </button>";
+												echo "<button type = \"button\"  onclick = \"changeyear('M.Sc Final semester')\" class= \"dropdown-item\" > M.Sc Final semester</button>";
+											
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+						<div class="form-group"> 
+							<label for=""><b>Supervisor:</b></label>
+							
+							<div class="input-group">
+								<input type="text" name = "supervisor" class="form-control" id="inp" placeholder = "Enter Supervisor Name" required=""/>
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" ></button>
+									<div class="dropdown-menu">
+										
+										<?php
+											$qry = "select `name` from `add_teacher`";
+											$res = mysqli_query($conn,$qry);
+											while($row = mysqli_fetch_assoc($res))
+											{
+												echo "<button type = \"button\"  onclick = \"changeinput('$row[name]')\" class= \"dropdown-item\" > $row[name] </button>";
+											}
+										?>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						
+						<div class="form-group"> 
+							<label for=""><b>Co-Supervisor:</b></label>
+							
+							<div class="input-group">
+								<input type="text" name = "co_supervisor" class="form-control" id="co_sup" placeholder = "Enter Supervisor Name" required="" />
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" ></button>
+									<div class="dropdown-menu">
+										
+										<?php
+											$qry = "select `name` from `add_teacher`";
+											$res = mysqli_query($conn,$qry);
+											while($row = mysqli_fetch_assoc($res))
+											{
+												echo "<button type = \"button\"  onclick = \"changecospervisor('$row[name]')\" class= \"dropdown-item\" > $row[name] </button>";
+											}
+										?>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="form-group"> 
+							<label for=""><b>Member1:</b></label>
+							
+							<input class="form-control" type="text" name="member1"  placeholder = "Enter Member Name" value ="" required=""/>
+						</div>
+						
+						<div class="form-group"> 
+							<label for=""><b>Member2:</b></label>
+							
+							<input class="form-control" type="text" name="member2"  placeholder = "Enter Member Name" value =""/>
+						</div>
+						
+						<div class="form-group"> 
+							<label for=""><b>Member3:</b></label>
+							
+							<input class="form-control" type="text" name="member3"  placeholder = "Enter Member Name" value =""/>
+						</div>
+						
+						
+						<div class="form-group"> 
+							<label for=""><b>Project Description:</b></label>
+							
+							<textarea name="description" id="" cols="30" rows="3" placeholder = "Enter Project Description" class="form-control" required="" ></textarea>
+														
+						</div>
+						
+						<div class="form-group"> 
+							<label for=""><b>Upload an image:</b></label>
+							
+							<div class = "form-control">
+								<input  type="file" name="f1" />
+							</div>
+							
+						</div>
+			
+						<div style = "text-align:center;">
+						
+							<input class="btn btn-primary submit" type="submit" name="submit1" value="Submit" style = "width: 250px; max-width:80%">
+						
+						</div>
+					</form>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<!-- PHP code for uploading the project -->
+		
+		<?php 
+			
+			if(isset($_POST['submit1']))
+			{
+				$project_name = $_POST['project_name'];
+				$session = $_POST['session'];
+				$semester = $_POST['semester'];
+				$supervisor = $_POST['supervisor'];
+				$co_supervisor = $_POST['co_supervisor'];
+				$member1 = $_POST['member1'];
+				$member2 = $_POST['member2'];
+				$member3 = $_POST['member3'];
+				$project_description = $_POST['description'];
+				
+
+				if(!isset($_FILES['f1']))
+				{
+					$qry = "INSERT INTO `project_information`( `project_name`, `session`, `semester`, `supervisor`, `co_supervisor`,`member1`, `member2`, `member3`, `project_des`, `project_image`) VALUES ('$project_name','$session','$semester','$co_supervisor', '$member1', '$member2','$member3', '$project_name','$project_description','')";
+				}
+
+				else
+				{
+					
+					$filename = $_FILES["f1"]["name"];
+					$tmpname = $_FILES["f1"]["tmp_name"];
+					$folder = "project_image/".$filename;	
+					move_uploaded_file($tmpname,$folder);
+					$qry = "INSERT INTO `project_information`( `project_name`, `session`, `semester`, `supervisor`, `co_supervisor`, `member1`, `member2`, `member3`, `project_des`, `project_image`) VALUES ('$project_name','$session','$semester','$supervisor','$co_supervisor','$member1', '$member2','$member3','$project_description','$filename')";
+				}
+				
+				
+				
+				$res = mysqli_query($conn, $qry);
+
+					
+					?>
+						<script type="text/javascript">
+							alert("Project Added Successfully");
+							window.location = "project_list.php";
+						</script>
+					<?php
+			}
+		?>
+		
+		<!-- End of PHP code for uploading the project -->
+		
+</body>
+</html>

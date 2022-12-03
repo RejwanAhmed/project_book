@@ -1,0 +1,31 @@
+<?php
+	session_start();
+	if($_SESSION["userloggedin"]!=1)
+	{
+		?>
+			<script>
+				window.location = "user_panel.php";
+			</script>
+		<?php 
+		exit();
+	}
+	include('db_connection.php');
+	
+	$teacher_name = $_POST['name'];
+	$session = $_POST['session'];
+	$year = $_POST['year'];
+	$pass = $_POST['password'];
+	
+	$pass = md5($pass);
+	$qry = "INSERT INTO `exam_committee`(`teacher_name`, `session`, `year`, `password`) VALUES ('$teacher_name','$session','$year','$pass')";
+	
+	$res = mysqli_query($conn, $qry);
+	
+	?>
+		<script type="text/javascript">
+			window.alert("Teacher Added to the Exam Committee Successfully");
+			window.location = "exam_committee_registration.php";
+		</script>
+	<?php
+
+?>

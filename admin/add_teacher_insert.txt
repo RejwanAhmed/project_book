@@ -1,0 +1,82 @@
+<?php 
+	session_start();
+	if($_SESSION["loggedin"]!=1)
+	{
+		header("location:login.php");
+	}
+
+	$conn = mysqli_connect("localhost","root","","project");
+	
+	$name = $_POST['name'];
+	$desig = $_POST['designation'];
+	$email = $_POST['email'];
+	$pass = $_POST['password'];
+	$repeat_pass = $_POST['repeat_password'];
+	$repeat_pass = base64_encode($repeat_pass);
+	$pass = base64_encode($pass);
+	
+	$exist_email = 0;
+	
+	if (!preg_match("/^[a-zA-Z ]*$/",$name)) 
+	{
+		?>
+			<script type="text/javascript">
+			window.alert("Invalid Teacher Name");
+			window.location = "add_teacher.php";
+			</script>
+		<?php
+	}
+	else if(filter_var($email, FILTER_VALIDATE_EMAIL) == false)
+	{
+		?>
+			<script type="text/javascript">
+			window.alert("Invalid Email Address");
+			window.location = "add_teacher.php";
+			</script>
+		<?php
+	}
+	else
+	{
+		$qry2 = "select * from `add_teacher`";
+		$res2 = mysqli_query($conn,$qry2);
+		while($row2 = mysqli_fetch_assoc($res2))
+		{
+			if($row2['email'] == $email)
+			{
+				$exist_email = 1;
+				break;
+			}
+		}
+		if($exist_email==1)
+		{
+			?>
+				<script type="text/javascript">
+					window.alert("Email Address already exist");
+					window.location = "add_teacher.php";
+				</script>
+			<?php 
+		}
+		else if($pass!=$repeat_pass)
+		{
+			?>
+				<script type="text/javascript">
+					window.alert("Password not Matched");
+					window.location = "add_teacher.php";
+				</script>
+			<?php 
+		}
+		else
+		{
+			$qry = "INSERT INTO `add_teacher`(`name`, `designation`, `email`,`password`,`repeat_password`) VALUES ('$name','$desig','$email','$pass','$repeat_pass')";
+			$res = mysqli_query($conn,$qry);
+			?>
+			<script type="text/javascript">
+				window.alert("Teacher Added Successfully");
+				window.location = "view_teacher.php";
+			</script>
+			<?php
+		}
+	
+	}	
+	
+?>

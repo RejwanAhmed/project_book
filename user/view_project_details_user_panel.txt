@@ -1,0 +1,192 @@
+<?php
+	session_start();
+	include('db_connection.php');
+	$id = $_GET['id'];
+	$qry = "select * from `project_information` where `id` = '$id'";
+	$res = mysqli_query($conn, $qry);
+	$row = mysqli_fetch_assoc($res);
+	
+?>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/owncssuser.css" />
+
+
+	<title>View Project Details</title>
+
+</head>
+<body >
+
+		
+		<!-- Navbar -->
+		<div id = "mynavbar"  role = "navigation" >
+			<nav class="navbar navbar-expand-lg  navbar-dark ">
+				<h3 style = "color:#F0F8FF;"><b> Welcome To Project Book</b></h3>
+				
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			  
+				<div class="collapse navbar-collapse" id="collapsibleNavbar">
+					<ul class="nav navbar-nav navbar-right ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link active" href="teacher_login.php">TEACHER PROFILE<img src="images/team.png" style = "height: 30px; width: 30px; border-radius: 50%; margin-left: 10px; margin-top: -8px;"alt="" />
+							
+							</a>
+						</li>				
+				</div>  		  
+			</nav>
+		</div>
+		
+			<br>
+		<!-- End of Navbar -->
+		
+		<!-- Header -->
+		
+		<div class = "logintext">
+			<h2 style = "color:#3871F6; width: auto;"><b>Project Details</b></h2>
+			<b><hr class = "pr_detailsline"/></b>
+		</div>
+		
+		<!-- End of Header -->
+		
+		<!-- Project Details -->
+		
+		<div class = "container-fluid">
+		
+			<div class = "row justify-content-center">
+				
+				<div class = "col-lg-4 col-sm-6 col-md-6 col-12">
+					<form name = "" action="" method = "POST" class = "form-container">
+						<div class="form-group"> 
+							<label><b>Project Name:</b></label>
+							
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control"  
+								value = "<?php
+											echo $row['project_name'] ;
+										?>" disabled />
+						</div>
+						
+						
+						<div class="form-group"> 
+							<label><b>Session:</b></label>
+							<input style = "font-size:20px; text-align:center; " type="text" class="form-control"    
+								value = "<?php
+											echo $row['session'] ;
+										?>" disabled />						
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Year:</b></label>
+							<input style = "font-size:20px; text-align:center; " type="text" class="form-control"    
+								value = "<?php
+											echo $row['year'] ;
+										?>" disabled />						
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Semester:</b></label>
+								<input style = "font-size:20px; text-align:center; " type="text" class="form-control"  
+									value = "<?php
+												echo $row['semester'] ;
+											?>" disabled />					
+										
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Supervisor:</b></label>
+					
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control" 
+								value = "<?php
+											echo $row['supervisor'] ;
+										?>"disabled />
+						</div>	
+								
+						<div class="form-group"> 
+							<label><b>Co-Supervisor:</b></label>
+					
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control" 
+								value = "<?php
+											echo $row['co_supervisor'] ;
+										?>"disabled />
+						</div>	
+						
+						<div class="form-group"> 
+							<label><b>Member1:</b></label>	
+					
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control" 
+								value = "<?php
+											echo "$row[member1]";
+											
+										?>"disabled />
+						</div>	
+						
+						<div class="form-group"> 
+							<label><b>Member2:</b></label>	
+					
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control" 
+								value = "<?php
+											if($row['member2']=="")
+											{
+												echo "No Member";
+											}
+											else
+											{
+												echo "$row[member2]";
+											}										
+										?>"disabled />
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Member3:</b></label>	
+					
+							<input style = "font-size:20px; text-align:center;" type="text" class="form-control" 
+								value = "<?php
+											if($row['member3']=="")
+											{
+												echo "No Member";
+											}
+											else
+											{
+												echo "$row[member3]";
+											}
+																						
+										?>"disabled />
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Project Description:</b></label>	
+							<textarea style = "font-size:18px; align-content:center; overflow:auto;"   class="form-control" cols="30" rows="10" disabled>
+<?php echo $row['project_des']; ?>
+							</textarea>
+							
+						</div>
+						
+						<div class="form-group"> 
+							<label><b>Image:</b></label>	
+							<br />
+							<?php 
+								echo "<td>"; 
+								echo "<img src=../user/project_image/$row[project_image] alt= 'No Image' />"; 
+								echo"</td>";
+							?>
+							
+						</div>
+						
+					</form>		
+				</div>
+			</div>					
+					
+		</div>
+		
+		<!-- End of Project Details -->
+		
+</body>
+</html>
